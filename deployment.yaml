@@ -13,9 +13,15 @@ spec:
       labels:
         app: demo-ci-cd
     spec:
+      serviceAccountName: demo-ci-cd-sa
       containers:
         - name: demo-ci-cd
-          image: k3d-ysfregistry.localhost:5001/demo-ci-cd:1.0.1
-          imagePullPolicy: Always
+          image: k3d-ysfregistry.localhost:5001/demo-ci-cd:1.0.2
           ports:
             - containerPort: 3000
+          env:
+            - name: VAULT_ADDR
+              value: "http://vault.vault.svc:8200"
+            - name: VAULT_ROLE
+              value: "demo-ci-cd-role"
+
