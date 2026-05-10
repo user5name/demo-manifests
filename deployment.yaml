@@ -16,7 +16,7 @@ spec:
       serviceAccountName: demo-ci-cd-sa
       containers:
         - name: demo-ci-cd
-          image: k3d-ysfregistry.localhost:5001/demo-ci-cd:1.0.2
+          image: k3d-ysfregistry.localhost:5001/demo-ci-cd:1.0.3
           ports:
             - containerPort: 3000
           env:
