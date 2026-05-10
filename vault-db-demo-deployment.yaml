@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vault-db-demo
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vault-db-demo
+  template:
+    metadata:
+      labels:
+        app: vault-db-demo
+    spec:
+      serviceAccountName: vault-db-demo-sa
+      containers:
+        - name: vault-db-demo
+          image: k3d-ysfregistry.localhost:5001/vault-db-demo:1.0.0
+          ports:
+            - containerPort: 3000
+          env:
+            - name: VAULT_ADDR
+              value: "http://vault.vault.svc:8200"
+            - name: VAULT_ROLE
+              value: "vault-db-demo-role"
+            - name: PGHOST
+              value: "postgres-postgresql.database.svc.cluster.local"
+            - name: PGPORT
+              value: "5432"
+            - name: PGDATABASE
+              value: "appdb"
+
